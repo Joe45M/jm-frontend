@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;1,400&display=swap');
+@import "~bootstrap-scss";
+@import "~aos/src/sass/aos";
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.vertical-title {
+  text-transform: uppercase;
+  font-size: 150%;
+  font-weight: bold;
+
+  @include media-breakpoint-up(lg) {
+    writing-mode: tb-rl;
+    text-orientation: upright;
+  }
+}
+
+.btn-primary {
+  border: 2px solid #000;
+  color: #000;
+  font-weight: bold;
+  background-color: transparent !important;
+  border-radius: 0;
+  padding: .5rem 2rem;
+
+  &:hover {
+    border: 2px solid #000;
+    background-color: #000 !important;
+    color: #ffffff;
+  }
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('~@/assets/fonts/icomoon.eot?jdj5be');
+  src:  url('~@/assets/fonts/icomoon.eot?jdj5be#iefix') format('embedded-opentype'),
+  url('~@/assets/fonts/icomoon.ttf?jdj5be') format('truetype'),
+  url('~@/assets/fonts/icomoon.woff?jdj5be') format('woff'),
+  url('~@/assets/fonts/icomoon.svg?jdj5be#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-github:before {
+  content: "\e900";
+}
+.icon-instagram:before {
+  content: "\e901";
+  color: #e4405f;
+}
+.icon-twitter:before {
+  content: "\e902";
+  color: #1da1f2;
+}
+
+
+// Transitions
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s ease-in-out;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.fade-enter {
+  a {
+    transition-delay: .3s;
+    opacity: 1;
+  }
+}
+
+.toggle-fade-enter-active, .toggle-fade-leave-active {
+  transition: opacity .3s ease-in-out;
+  position: absolute;
+
+}
+.toggle-fade-enter, .toggle-fade-leave-to /* .toggle-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.toggle-fade-enter {
+  a {
+    transition-delay: .3s;
+    opacity: 1;
+  }
+}
+
+.page-title {
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-top: 15vh;
+
+
+  @include media-breakpoint-up(lg) {
+    letter-spacing: 10px;
+    margin-top: 10vh;
+  }
+}
+
+.sub-title {
+
+}
+
+.column-title {
+  font-weight: bold;
+  letter-spacing: 5px;
+  color: rgba(0, 0, 0, 0.36);
+  padding-top: 0;
+}

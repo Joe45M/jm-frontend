@@ -1,32 +1,80 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="app" v-on:mousemove="updateCursor" v-on:mousedown="flexMouse" v-on:mouseup="flexMouse">
+    <Navigation></Navigation>
+    <div class="cursor-svg"></div>
+    <transition name="fade">
+      <router-view/>
+    </transition>
+    <Footer></Footer>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+   * {
 
-#nav {
-  padding: 30px;
+   }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  .cursor-svg {
+    position: fixed;
+    z-index: 200;
+    pointer-events: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    transition-duration: .3s;
+    display: none;
 
-    &.router-link-exact-active {
-      color: #42b983;
+    @include media-breakpoint-up(lg) {
+      display: block;
     }
   }
-}
+
+   ::selection {
+     color: #ffffff;
+     background: #000; /* WebKit/Blink Browsers */
+   }
+   ::-moz-selection {
+     color: #ffffff;
+     background: #000; /* Gecko Browsers */
+   }
+  
+  .flexed {
+    transition-duration: .3s;
+    width: 20px;
+    height: 20px;
+  }
 </style>
+
+
+<script>
+
+  import Footer from "./components/Footer";
+  import Navigation from "./components/Navigation";
+  export default {
+
+    components: {
+      Navigation,
+      Footer
+    },
+
+    methods: {
+      updateCursor(e) {
+        var event = e;
+        setTimeout(function () {
+          document.querySelector('.cursor-svg').style.transform = `translate(${event.clientX - 20}px, ${event.clientY - 20}px)`;
+        }, 200)
+      },
+
+      flexMouse() {
+        let cursor = document.querySelector('.cursor-svg');
+        if(cursor.classList.contains('flexed')) {
+          cursor.classList.remove('flexed');
+        } else {
+          cursor.classList.add('flexed');
+        }
+      }
+
+    }
+  }
+</script>
