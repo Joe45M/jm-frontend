@@ -9,33 +9,9 @@
                     <div class="row">
                         <div class="col-lg-6" data-aos="fade-up" data-aos-duration="400" v-for="(post, index) in posts" v-bind:key="index">
                             <div class="post-wrapper">
-                                <router-link to="/">
-                                    <div class="image" style="background-image: url('http://placehold.it/200x100')"></div>
-                                    <span class="title">{{ post.title.rendered }}</span>
-                                </router-link>
-                            </div>
-                        </div>
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="400">
-                            <div class="post-wrapper">
-                                <router-link to="/">
-                                    <div class="image" style="background-image: url('http://placehold.it/200x100')"></div>
-                                    <span class="title">POST TITLE</span>
-                                </router-link>
-                            </div>
-                        </div>
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="400">
-                            <div class="post-wrapper">
-                                <router-link to="/">
-                                    <div class="image" style="background-image: url('http://placehold.it/200x100')"></div>
-                                    <span class="title">POST TITLE</span>
-                                </router-link>
-                            </div>
-                        </div>
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="400">
-                            <div class="post-wrapper">
-                                <router-link to="/">
-                                    <div class="image" style="background-image: url('http://placehold.it/200x100')"></div>
-                                    <span class="title">POST TITLE</span>
+                                <router-link v-bind:to="`/blog/${post.slug}`">
+                                    <div class="image" v-bind:style="{backgroundImage: `url(${post._embedded['wp:featuredmedia'][0].source_url})`}"></div>
+                                    <span class="title" v-html="post.title.rendered"></span>
                                 </router-link>
                             </div>
                         </div>
@@ -101,7 +77,7 @@
         },
 
         created() {
-            fetch('https://joemoses.dev/wp-json/wp/v2/posts')
+            fetch('https://joemoses.dev/wp-json/wp/v2/posts?per_page=4&_embed')
                 .then(res => res.json())
                 .then(json  => {
                     this.posts = json

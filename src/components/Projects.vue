@@ -6,15 +6,15 @@
                     <span class="vertical-title">Projects</span>
                 </div>
                 <div class="col-lg-11">
-                    <router-link to="/" class="project-link" data-aos="fade-up" data-aos-duration="400">
+                    <router-link v-bind:to="`/project/${project.slug}`" class="project-link" data-aos="fade-up" data-aos-duration="400" v-for="(project, index) in projects" v-bind:key="index">
                         <div class="project-container" data-aos="fade-up" data-aos-duration="400">
                             <div class="row h-100">
                                 <div class="col-lg-7">
-                                    <span class="title">FULL-STACK ASSISTANT</span>
-                                    <div class="image" style="background-image: url(https://joemoses.dev/wp-content/uploads/2020/01/fs.jpg);"></div>
+                                    <span class="title" v-html="project.title.rendered"></span>
+                                    <div class="image" v-bind:style="{backgroundImage: `url(${project._embedded['wp:featuredmedia'][0].source_url})`}"></div>
                                 </div>
                                 <div class="col-lg-5 description d-flex align-items-center">
-                                    <div class="description-wrap mt-4 mt-lg-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid delectus dolore dolorem iure nam nesciunt perferendis quidem reprehenderit totam voluptas. Assumenda consectetur deleniti dolores doloribus enim perspiciatis porro sapiente. Enim?</div>
+                                    <div class="description-wrap mt-4 mt-lg-0" v-html="project.excerpt.rendered">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid delectus dolore dolorem iure nam nesciunt perferendis quidem reprehenderit totam voluptas. Assumenda consectetur deleniti dolores doloribus enim perspiciatis porro sapiente. Enim?</div>
                                 </div>
                             </div>
                         </div>
@@ -33,6 +33,20 @@
 <script>
     export default {
         name: "Projects",
+        data: function() {
+            return {
+                projects: []
+            }
+        },
+
+        created() {
+            fetch('https://joemoses.dev/wp-json/wp/v2/portfolio?per_page=4&_embed')
+                .then(res => res.json())
+                .then(json  => {
+                    this.projects = json
+                });
+
+        },
     }
 </script>
 

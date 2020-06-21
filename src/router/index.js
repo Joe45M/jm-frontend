@@ -6,6 +6,7 @@ import BlogListing from '../views/BlogListing.vue'
 import Projects from '../views/Projects.vue'
 import Contact from '../views/Contact.vue'
 import Wordpress from '../views/Wordpress.vue'
+import ProjectDetail from '../views/ProjectDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -35,11 +36,16 @@ Vue.use(VueRouter)
     name: 'Contact',
     component: Contact,
   },
-    {
-      path: '/projects',
-      name: 'Projects',
-      component: Projects,
-    },
+  {
+    path: '/projects',
+    name: 'Projects',
+    component: Projects,
+  },
+  {
+    path: '/project/:project',
+    name: 'Project',
+    component: ProjectDetail,
+  },
   {
     path: '/about',
     name: 'About',
