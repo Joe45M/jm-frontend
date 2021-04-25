@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <router-link to="/" class="project-link" data-aos="fade-up" data-aos-duration="400">
-                        <div class="project-container" data-aos="fade-up" data-aos-duration="400">
+                    <router-link to="/" class="project-link">
+                        <div class="project-container">
                             <div class="row h-100">
                                 <div class="col-lg-7">
                                     <span class="title">FULL-STACK ASSISTANT</span>
@@ -29,7 +29,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "~aos/src/sass/aos";
     .projects {
         position: relative;
         z-index: 2;

@@ -7,6 +7,8 @@ import Projects from '../views/Projects.vue'
 import Contact from '../views/Contact.vue'
 import Wordpress from '../views/Wordpress.vue'
 import ProjectDetail from '../views/ProjectDetail.vue'
+import WebDevelopment from '../views/WebDevelopment.vue'
+import Meta from "../views/Meta";
 
 Vue.use(VueRouter)
 
@@ -22,9 +24,12 @@ Vue.use(VueRouter)
     component: Blog
   },
   {
-    path: '/blog/blog-post/',
+    path: '/blog/:blog_post',
     name: 'BlogListing',
-    component: BlogListing
+    component: BlogListing,
+    meta: {
+      title: 'Blog post'
+    }
   },
   {
     path: '/wordpress',
@@ -47,6 +52,16 @@ Vue.use(VueRouter)
     component: ProjectDetail,
   },
   {
+    path: '/web-design',
+    name: 'WebDevelopment',
+    component: WebDevelopment,
+  },
+  {
+    path: '/meta',
+    name: 'Meta',
+    component: Meta,
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
@@ -58,15 +73,12 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
   base: process.env.BASE_URL,
   routes
 });
 
-
-
-router.afterEach(function () {
-  window.scrollTo(0, 0);
-
-});
 
 export default router

@@ -1,17 +1,31 @@
 <template>
-  <div id="app" v-on:mousemove="updateCursor" v-on:mousedown="flexMouse" v-on:mouseup="flexMouse">
-    <Navigation></Navigation>
-    <div class="cursor-svg"></div>
-    <transition name="fade">
-      <router-view/>
-    </transition>
+  <div id="app" v-bind:class="theme_colour">
+    <div class="main">
+      <Navigation></Navigation>
+      <!--    <div class="cursor-svg"></div>-->
+      <transition name="page-fade" mode="out-in">
+        <router-view @style="updateStyle" />
+      </transition>
+    </div>
     <Footer></Footer>
   </div>
 </template>
 
 <style lang="scss">
+  @import "~aos/dist/aos.css";
+  body {
+    scroll-behavior: smooth;
+  }
+  #app {
+    min-height: 100vh;
+  }
+
    * {
 
+   }
+
+   .main {
+     min-height: 100vh;
    }
 
   .cursor-svg {
@@ -30,6 +44,18 @@
     }
   }
 
+  .loading {
+    opacity: 0;
+    transition: all 1s;
+    transition-delay: .2s;
+    transform: translateY(500px);
+  }
+
+  .loaded {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+
    ::selection {
      color: #ffffff;
      background: #000; /* WebKit/Blink Browsers */
@@ -44,11 +70,36 @@
     width: 20px;
     height: 20px;
   }
+  
+  .dark {
+    background-color: #000;
+    color: #ffffff;
+  }
+
+
+  [data-aos="small-fade"] {
+    transform: translateY(60px);
+    opacity: 1;
+    &.aos-animate {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+
+  [data-aos="large-fade"] {
+    transform: translateY(120px);
+    opacity: 1;
+    &.aos-animate {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+
 </style>
 
 
 <script>
-
+  import AOS from 'aos';
   import Footer from "./components/Footer";
   import Navigation from "./components/Navigation";
   export default {
@@ -58,12 +109,20 @@
       Footer
     },
 
+    data() {
+      return {
+        theme_colour: 'light',
+      }
+    },
+
+    created() {
+      AOS.init()
+    },
+
     methods: {
-      updateCursor(e) {
-        var event = e;
-        setTimeout(function () {
-          document.querySelector('.cursor-svg').style.transform = `translate(${event.clientX - 20}px, ${event.clientY - 20}px)`;
-        }, 200)
+
+      updateStyle(e) {
+        this.theme_colour = e;
       },
 
       flexMouse() {
@@ -73,7 +132,7 @@
         } else {
           cursor.classList.add('flexed');
         }
-      }
+      },
 
     }
   }

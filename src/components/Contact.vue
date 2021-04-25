@@ -3,10 +3,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-1">
-                    <span class="vertical-title">CONTACT</span>
+                    <span class="vertical-title" data-aos="small-fade" data-aos-duration="500" data-aos-easing="ease-out">CONTACT</span>
                 </div>
                 <div class="col-lg-11">
-                    <a href="mailto:info@joemoses.dev" class="link">INFO@ <br> JOEMOSES.CO.UK</a>
+
+                    <a href="mailto:hello@joemoses.co.uk" class="link"  data-aos="small-fade" data-aos-easing="ease-out">hello@ <br> joemoses.co.uk</a>
                 </div>
             </div>
         </div>
@@ -22,7 +23,7 @@
         @include media-breakpoint-up(lg) {
 
             padding: 100px 0;
-            padding-top: 140px;
+            padding-top: 90px;
         }
     }
 

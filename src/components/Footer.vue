@@ -15,6 +15,10 @@
 
 <style lang="scss" scoped>
     footer {
+        /*position: absolute;*/
+        /*bottom: 0;*/
+        /*left: 0;*/
+        /*width: 95vw;*/
         padding: 40px 0;
         a {
             color: #000;

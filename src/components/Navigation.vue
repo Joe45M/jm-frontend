@@ -1,7 +1,7 @@
 <template>
     <div class="navigation-wrap" v-bind:class="{'nav-active': nav_active }">
         <div class="container">
-            <button  @click="toggleNav" class="nav-toggle">
+            <button  @click="toggleNav" class="nav-toggle" :class="{ 'nav-hidden': !show_nav }">
                 <transition name="toggle-fade">
                     <span v-if="nav_active">close</span>
                 </transition>
@@ -12,7 +12,7 @@
         </div>
 
         <transition
-                name="fade"
+                name="toggle-fade"
                 v-on:enter="entered">
             <div class="nav-overlay" v-if="nav_active">
                 <div class="container">
@@ -27,14 +27,13 @@
                                 <router-link to="/projects">Projects</router-link>
                             </li>
                             <li class="has-children" data-child="services">
-                                <span @click.prevent="toggleSubMenu" class="has-children" data-child="services">services</span>
+                                <span @click.prevent="toggleSubMenu" class="has-children" data-child="services">Services</span>
                                     <div class="sub-menu">
                                     <ul>
                                         <li>
                                             <router-link to="/wordpress">WordPress</router-link>
                                         </li>
                                         <li>
-                                            <router-link to="/web-design">Web Design</router-link>
                                         </li>
                                     </ul>
                                 </div>
@@ -202,22 +201,47 @@
             }
         }
     }
+    
+    .nav-hidden {
+        -webkit-transition-duration: .3s;
+        -moz-transition-duration: .3s;
+        -ms-transition-duration: .3s;
+        -o-transition-duration: .3s;
+        transition-duration: .3s;
+        opacity: 0;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
 </style>
 
 <script>
     export default {
         name: "Navigation",
 
+
+        created () {
+            window.addEventListener('scroll', this.menu);
+        },
+
+        destroyed () {
+            window.removeEventListener('scroll', this.menu);
+        },
+
+
         data: function() {
             return {
-                nav_active: false
+                nav_active: false,
+                last_scroll_pos: window.scrollY,
+                show_nav: true
             }
         },
 
         methods: {
 
             toggleNav(e) {
-                console.log(e.target);
+                // console.log(e.target);
                 if(!e.target.classList.contains('has-children')) {
                     this.nav_active = !this.nav_active;
                 }
@@ -234,7 +258,16 @@
                          el.classList.toggle('inactive');
                      }
                 })
+            },
 
+            menu() {
+                if(this.last_scroll_pos < document.body.getBoundingClientRect().top) {
+                    this.show_nav = true;
+                } else {
+                    this.show_nav = false;
+                }
+
+                this.last_scroll_pos = document.body.getBoundingClientRect().top;
             },
 
 

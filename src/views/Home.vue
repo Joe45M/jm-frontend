@@ -1,10 +1,10 @@
 <template>
   <div>
-    <LandingWrap/>
+    <LandingWrap data-aos="fade" data-aos-delay="5000"/>
     <div class="project-wrap">
-      <Projects></Projects>
+      <Projects showTitle="true" perPage="4"></Projects>
     </div>
-    <RecentPosts></RecentPosts>
+    <RecentPosts  showTitle="true" perPage="4"></RecentPosts>
     <Contact></Contact>
   </div>
 </template>
@@ -25,23 +25,47 @@ export default {
     Contact
   },
 
+  metaInfo: {
+    title: 'Joe Moses - WordPress development',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'description', content: 'Is your WordPress Website performing? Get in touch today for a free quote.' }
+    ]
+  },
+
   mounted() {
+
+      this.$emit('style', 'light')
 
     let options = {
       root: null,
-      threshold: 0.1
+      rootMargin: '0px',
+      threshold: [
+        0.10,
+        0.20,
+        0.30,
+        0.40,
+        0.50,
+        0.60,
+        0.70,
+        0.80,
+        0.90,
+        1.00,
+      ]
     }
 
     function fade(entries) {
       // entries[0].target.classList.toggle('fade');
       var landing = document.querySelector('.landing-wrap')
 
-      console.log(entries[0])
       if (entries[0].isIntersecting) {
-        landing.classList.add('faded');
+        var ratio = entries[0].intersectionRatio;
+        if(ratio < 0.50) {
+          ratio = ratio - 0.15;
+        }
+        landing.style.opacity = ratio;
       } else {
         landing.classList.remove('faded');
-        console.log('boop')
       }
 
     }
@@ -49,15 +73,16 @@ export default {
 
     this.observer = new IntersectionObserver(fade, options);
 
-    let projects = document.querySelector('.project-wrap');
+    let landing = document.querySelector('.landing-wrap');
 
-    console.log(projects)
-    this.observer.observe(projects)
-''
+    this.observer.observe(landing)
+  },
+
+  created() {
   },
 
   beforeDestroy() {
-    this.observer.destroy();
+    // this.observer.unobserve();
   }
 
 }
@@ -67,8 +92,7 @@ export default {
 <style scoped lang="scss">
 
   .landing-wrap {
-    opacity: 1;
-    transition: all .4s;
+    transition: all .4s ease;
   }
 
   .faded {

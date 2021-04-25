@@ -1,27 +1,27 @@
 <template>
-    <section class="projects">
+    <section class="projects loading" ref="container" data-aos-duration="500">
         <div class="container">
             <div class="row">
-                <div class="col-lg-1">
+                <div class="col-lg-1" v-if="showTitle != 'false'">
                     <span class="vertical-title">Projects</span>
                 </div>
                 <div class="col-lg-11">
-                    <router-link v-bind:to="`/project/${project.slug}`" class="project-link" data-aos="fade-up" data-aos-duration="400" v-for="(project, index) in projects" v-bind:key="index">
-                        <div class="project-container" data-aos="fade-up" data-aos-duration="400">
+                    <router-link v-bind:to="`/project/${project.slug}`" class="project-link"  v-for="(project, index) in projects" v-bind:key="index">
+                        <div class="project-container">
                             <div class="row h-100">
-                                <div class="col-lg-7">
+                                <div class="col-lg-7" data-aos="small-fade" data-aos-duration="500">
                                     <span class="title" v-html="project.title.rendered"></span>
                                     <div class="image" v-bind:style="{backgroundImage: `url(${project._embedded['wp:featuredmedia'][0].source_url})`}"></div>
                                 </div>
-                                <div class="col-lg-5 description d-flex align-items-center">
-                                    <div class="description-wrap mt-4 mt-lg-0" v-html="project.excerpt.rendered">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid delectus dolore dolorem iure nam nesciunt perferendis quidem reprehenderit totam voluptas. Assumenda consectetur deleniti dolores doloribus enim perspiciatis porro sapiente. Enim?</div>
+                                <div class="col-lg-5 description d-flex align-items-center" data-aos="large-fade" data-aos-duration="500" data-aos-easing="ease-out" data-aos-delay="50">
+                                    <div class="description-wrap mt-4 mt-lg-0" v-html="project.excerpt.rendered">Lore consectetur deleniti dolores doloribus enim perspiciatis porro sapiente. Enim?</div>
                                 </div>
                             </div>
                         </div>
                     </router-link>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="showTitle != 'false'">
                 <div class="col-lg-11 offset-lg-1 my-5 mt-lg-0">
                     <span class="more">But wait, <router-link to="projects">there's more</router-link></span>
                 </div>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+    import AOS from "aos";
     export default {
         name: "Projects",
         data: function() {
@@ -39,24 +40,30 @@
             }
         },
 
+        props: {
+            showTitle: null,
+            perPage: null,
+        },
+
         created() {
-            fetch('https://joemoses.dev/wp-json/wp/v2/portfolio?per_page=4&_embed')
+            fetch(`https://blog.joemoses.dev/wp-json/wp/v2/portfolio?per_page=${this.perPage}&_embed`)
                 .then(res => res.json())
                 .then(json  => {
                     this.projects = json
+                    this.$refs.container.classList.add('loaded');
+                    AOS.init();
                 });
-
         },
     }
 </script>
 
 <style scoped lang="scss">
-    @import "~aos/src/sass/aos";
     .projects {
         position: relative;
         z-index: 2;
         padding-top: 50px;
         background-color: #fff;
+        min-height: 95vh;
 
         @include media-breakpoint-up(lg) {
             padding-top: 200px;
@@ -112,7 +119,7 @@
                 }
             }
         }
-        
+
         .more {
             position: relative;
             padding-left: 60px;
@@ -157,6 +164,5 @@
                 }
             }
         }
-
     }
 </style>

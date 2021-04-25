@@ -10,17 +10,29 @@
                 </div>
             </div>
         </div>
-        <Projects></Projects>
+        <Projects showTitle="false" perPage="15"></Projects>
     </div>
 </template>
 
 
 <script>
-    import Projects from "../components/ProjectListing.vue";
+    import Projects from "../components/Projects.vue";
     export default {
         name: "projectPage",
         components: {
             Projects,
+        },
+
+
+        metaInfo: {
+            title: 'Projects - Joe Moses - WordPress development',
+            meta: [
+                { charset: 'utf-8' },
+                { name: 'description', content: 'Bespoke WordPress projects.' }
+            ]
+        },
+        mounted() {
+            this.$emit('style', 'light')
         }
     }
 </script>

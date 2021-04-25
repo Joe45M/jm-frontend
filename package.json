@@ -12,9 +12,13 @@
     "bootstrap": "^4.5.0",
     "bootstrap-scss": "^4.5.0",
     "core-js": "^3.6.5",
+    "lodash.debounce": "^4.0.8",
+    "popmotion": "^8.7.3",
     "vue": "^2.6.11",
-    "vue-aos": "^1.0.1",
+    "vue-analytics": "^5.22.1",
+    "vue-animate-scroll": "^0.1.5",
     "vue-carousel": "^0.18.0",
+    "vue-meta": "^2.4.0",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

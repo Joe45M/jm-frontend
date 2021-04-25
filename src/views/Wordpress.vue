@@ -17,11 +17,11 @@
             <div class="col-lg-6 d-flex align-items-center">
                 <div>
                     <h4 class="column-title mb-3">WordPress Development</h4>
-                    <p>WordPress, the Worlds largest Content Management System (CMS), is a powerful, flexible and extendable solution
+                    <p>WordPress, the Worlds largest Content Management System (CMS), is a powerful, flexible and extendable solution.
                         With a bespoke WordPress theme, enhanced SEO & a familiar administration panel, your team can handle content
                         like pros. </p>
-                    <p>I have been developing bespoke WordPress-powered solutions for over one year, whether it be a simple
-                        Brochure website, or a complex online store (E-commerce). Your WordPress website will be built around your requirements, ensuring a bespoke solution. </p>
+                    <p>I have been developing bespoke WordPress-powered solutions for over two years, whether it be a simple
+                        Brochure website, or a complex online e-commerce store. Your WordPress website will be built around your requirements, ensuring a bespoke solution. </p>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
                             </div>
                             <div class="col-9">
                                 <ul class="items">
-                                    <li>Sign Off</li>
+                                    <li>Sign off</li>
                                     <li>Launch</li>
                                     <li>Support</li>
                                 </ul>
@@ -136,6 +136,18 @@
         components: {
             // Carousel,
             // Slide
+        },
+
+        metaInfo: {
+            title: 'Bespoke WordPress development - Joe Moses',
+            meta: [
+                { charset: 'utf-8' },
+                { name: 'description', content: 'Affordable bespoke WordPress website development & design.' }
+            ]
+        },
+
+        mounted() {
+            this.$emit('style', 'light')
         }
     }
 </script>
